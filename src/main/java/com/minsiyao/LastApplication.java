@@ -12,6 +12,9 @@ public class LastApplication {
         SpringApplication.run(LastApplication.class, args);
         System.out.println("qwer");
         System.out.println("qwer");
+        System.out.println("qwer");
+        System.out.println("qwer");
+
     }
 
 }
