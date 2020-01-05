@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minsiyao.dao.BannerDao">
+    <!--查询所有-->
+    <select id="selectAll" resultType="Banner">
+        select * from banner
+    </select>
+    <!--插入Banner-->
+    <insert id="insert">
+        insert into banner values(#{id},#{title},#{img},#{create_date},#{status})
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById">
+        delete from banner where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <!--根据id查询-->
+    <select id="selectById" resultType="Banner">
+        select * from banner where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--修改-->
+    <update id="update">
+        update banner
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="img!=null">
+                img = #{img},
+            </if>
+            <if test="status!=null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--分页查询-->
+    <select id="selectByPaging" resultType="Banner">
+        select * from banner limit #{start},#{rows}
+    </select>
+    <!--查询所有条数-->
+    <select id="selectCount" resultType="Integer">
+        select count(*) from banner
+    </select>
+    <!--批量插入-->
+    <insert id="bulkInsert">
+        insert into banner values
+        <foreach collection="list" item="banner" separator=",">
+            (#{banner.id},#{banner.title},#{banner.img},#{banner.create_date},#{banner.status})
+        </foreach>
+    </insert>
+
+</mapper>

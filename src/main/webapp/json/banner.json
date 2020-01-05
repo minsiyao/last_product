@@ -1,0 +1,20 @@
+[
+  {
+    "id": "01",
+    "name": "zhangsan",
+    "age": "19",
+    "headPic": "A2.jpg"
+  },
+  {
+    "id": "02",
+    "name": "lisi",
+    "age": "19",
+    "headPic": "A2.jpg"
+  },
+  {
+    "id": "03",
+    "name": "wangwu",
+    "age": "19",
+    "headPic": "A2.jpg"
+  }
+]

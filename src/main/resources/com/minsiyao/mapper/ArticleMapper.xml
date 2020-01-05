@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minsiyao.dao.ArticleDao">
+    <!--分页查询-->
+    <select id="selectByPaging" resultType="Article">
+      select * from article limit #{start},#{rows}
+  </select>
+    <!--查询所有数据数量-->
+    <select id="selectCount" resultType="Integer">
+      select count(*) from article
+  </select>
+    <!--根据id删除数据-->
+    <delete id="deleteById">
+        delete from article where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+    <!--根据id查询-->
+    <select id="selectById" resultType="Article">
+        select * from article where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--根据id修改数据-->
+    <update id="updateById">
+        update article
+        <set>
+            <if test="guru_id!=null">
+                guru_id = #{guru_id} ,
+            </if>
+            <if test="author!=null">
+                author = #{author} ,
+            </if>
+
+            <if test="title!=null">
+                title = #{title} ,
+            </if>
+
+            <if test="create_date!=null">
+                create_date = #{create_date} ,
+            </if>
+
+            <if test="content!=null">
+                content = #{content} ,
+            </if>
+
+            <if test="status!=null">
+                status = #{status} ,
+            </if>
+
+            <if test="publish_date!=null">
+                publish_date = #{publish_date} ,
+            </if>
+
+            <if test="type!=null">
+                type = #{type} ,
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--添加数据-->
+    <insert id="insert">
+        insert into article values (#{id},#{guru_id},#{author},#{title},#{create_date},#{content},#{status},#{publish_date},#{type})
+    </insert>
+    <!--查询所有-->
+    <select id="selectAll" resultType="Article">
+        select * from article
+    </select>
+    <!--通过type查询-->
+    <select id="selectByType" resultType="Article">
+        select * from article where type = #{type}
+    </select>
+</mapper>

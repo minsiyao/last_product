@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minsiyao.dao.GuruDao">
+    <!--在一天内注册的-->
+    <select id="selectToDay" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 1 DAY) &lt; date(create_date)
+    </select>
+    <!--在第前二天注册的-->
+    <select id="selectOnTwoDay" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 2 DAY) &lt; date(create_date) and DATE_SUB(now(), INTERVAL 1 DAY) &gt; date(create_date)
+    </select>
+    <!--在第前三天注册的-->
+    <select id="selectOnThreeDay" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 3 DAY) &lt; date(create_date) and DATE_SUB(now(), INTERVAL 2 DAY) &gt; date(create_date)
+    </select>
+    <!--在第前四天注册的-->
+    <select id="selectOnFourDay" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 4 DAY) &lt; date(create_date) and DATE_SUB(now(), INTERVAL 3 DAY) &gt; date(create_date)
+    </select>
+    <!--在第前五天注册的-->
+    <select id="selectOnFiveDay" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 5 DAY) &lt; date(create_date) and DATE_SUB(now(), INTERVAL 4 DAY) &gt; date(create_date)
+    </select>
+    <!--在第前六天注册的-->
+    <select id="selectOnSixDay" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 6 DAY) &lt; date(create_date) and DATE_SUB(now(), INTERVAL 5 DAY) &gt; date(create_date)
+    </select>
+    <!--在第前七天注册的-->
+    <select id="selectOnSeven" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 7 DAY) &lt; date(create_date) and DATE_SUB(now(), INTERVAL 6 DAY) &gt; date(create_date)
+    </select>
+    <!--在七天内注册的-->
+    <select id="selectInSevenDays" resultType="Integer">
+        select count(*) from guru where DATE_SUB(now(), INTERVAL 7 DAY) &lt; date(create_date)
+    </select>
+    <!--查询一年内每个月的注册量-->
+    <select id="selectOnMouth" resultType="Integer">
+        SELECT count(*) FROM guru WHERE PERIOD_DIFF( date_format( now( ) , '%Y%m' ) , date_format( create_date, '%Y%m' ) ) =#{mouth}
+    </select>
+    <!--根据id删除-->
+    <delete id="deleteById">
+        delete from guru where id=#{id}
+    </delete>
+    <!--插入-->
+    <insert id="insert">
+        insert into guru values(#{id},#{dharma},#{name},#{sex},#{status},#{create_date},#{head_img})
+    </insert>
+
+</mapper>

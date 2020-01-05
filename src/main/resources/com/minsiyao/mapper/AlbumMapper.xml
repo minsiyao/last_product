@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.minsiyao.dao.AlbumDao">
+    <!--根据id查询-->
+    <select id="selectAll" resultType="Album">
+        select * from album
+    </select>
+    <!--分页查询-->
+    <select id="selectByPaging" resultType="Album">
+        select * from album limit #{start},#{rows}
+    </select>
+    <!--查询数据数量-->
+    <select id="selectCount" resultType="Integer">
+        select count(*) from album
+    </select>
+    <!--通过id查询-->
+    <select id="selectById" resultType="Album">
+        select * from album where id in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    <!--添加数据-->
+    <insert id="insert">
+        insert into album values(#{id},#{title},#{score},#{author},#{broadcaster},#{count},#{brief},#{create_date},#{img})
+    </insert>
+    <!--修改数据-->
+    <update id="update">
+        update album
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="score!=null">
+                score = #{score},
+            </if>
+            <if test="author!=null">
+                author = #{author},
+            </if>
+            <if test="broadcaster!=null">
+                broadcaster = #{broadcaster},
+            </if>
+            <if test="count!=null">
+                count = #{count},
+            </if>
+            <if test="brief!=null">
+                brief = #{brief},
+            </if>
+            <if test="create_date!=null">
+                create_date = #{create_date},
+            </if>
+            <if test="img!=null">
+                img = #{img},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <!--根据id删除-->
+    <delete id="deleteById">
+        delete from album where id in
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>
