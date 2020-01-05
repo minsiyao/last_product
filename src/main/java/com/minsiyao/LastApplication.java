@@ -11,6 +11,7 @@ public class LastApplication {
     public static void main(String[] args) {
         SpringApplication.run(LastApplication.class, args);
         System.out.println("qwer");
+        System.out.println("qwer");
     }
 
 }
